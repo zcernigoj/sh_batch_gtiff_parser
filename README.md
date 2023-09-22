@@ -9,12 +9,13 @@ Supports:
 - zarr
 
 Main function: `parse_multitemporal_gtiff_to_format`
+- Input parameters:
+  - `input_tiff`: url to openEO results geotiff image (`default.tif`)
+  - `input_metadata`: url to openEO results datacube metadata (`userdata.json`)
+  - `output_dir`: folder where the output files will be put
+  - `output_format`:  output format
+- output: array of file / folder paths to the output files
 
-Input parameters:
-- `input_tiff`: url to openEO results geotiff image (`default.tif`)
-- `input_metadata`: url to openEO results datacube metadata (`userdata.json`)
-- `output_dir`: folder where the output files will be put
-- `output_format`:  output format
 
 ```python
 output_file_paths = parse_multitemporal_gtiff_to_format(input_tiff, input_metadata, output_dir, output_format)
