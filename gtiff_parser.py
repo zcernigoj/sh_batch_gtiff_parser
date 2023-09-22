@@ -1,5 +1,4 @@
 import os
-import shutil
 import rioxarray
 from dateutil import parser
 import pandas as pd
@@ -92,9 +91,6 @@ def save_as_zarr(list_of_timestamp_arrays, output_dir, output_name):
     datacube_with_time_dimension = xr.combine_by_coords(list_of_timestamp_arrays)
     output_file_path = os.path.join(output_dir, f"{output_name['name']}{output_name['ext']}")
     datacube_with_time_dimension.to_zarr(output_file_path)
-    # zip the zarr folder to avoid listing a bunch of files
-    shutil.make_archive(output_file_path, "zip", output_file_path)
-    output_file_path = f"{output_file_path}.zip"
     return [output_file_path]
 
 
@@ -104,8 +100,6 @@ def parse_multitemporal_gtiff_to_format(input_tiff, input_metadata, output_dir, 
 
     time_dimensions = [dim for dim in datacube_metadata["outputDimensions"] if dim["type"] == "temporal"]
     bands_dimensions = [dim for dim in datacube_metadata["outputDimensions"] if dim["type"] == "bands"]
-
-    print("dim", time_dimensions, bands_dimensions)
 
     # mock a bands dimension (with 1 band) if it's not present in the data
     # e.g. save_result process right after ndvi process which doesn't have a target band set
